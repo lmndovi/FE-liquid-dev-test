@@ -120,7 +120,7 @@ You may also customize:
 
 Choose one of the following submission methods:
 
-### Option 1: ZIP File (Recommended)
+### Option 1: ZIP File
 1. Clean your project directory:
    ```bash
    npm run clean

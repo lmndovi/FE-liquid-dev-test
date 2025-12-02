@@ -19,20 +19,29 @@ function liquidPlugin() {
 
   // Register 'image_tag' filter to mimic Shopify's image_tag
   // Usage: {{ image_url | image_tag }} or {{ image_url | image_tag: alt: 'text', class: 'my-class' }}
-  engine.registerFilter('image_tag', function(url, alt, classParam, width, height) {
+  engine.registerFilter('image_tag', function(url, ...args) {
     if (!url) return '';
+
+    // LiquidJS passes named parameters as arrays [key, value]
+    // Convert them to an options object
+    const options = {};
+    args.forEach(arg => {
+      if (Array.isArray(arg) && arg.length === 2) {
+        options[arg[0]] = arg[1];
+      }
+    });
 
     // Build attributes
     let attributes = [`src="${url}"`];
 
     // Alt text (default to empty string if not provided)
-    const altText = alt !== undefined ? alt : '';
+    const altText = options.alt !== undefined ? options.alt : '';
     attributes.push(`alt="${altText}"`);
 
     // Add optional attributes if provided
-    if (classParam) attributes.push(`class="${classParam}"`);
-    if (width) attributes.push(`width="${width}"`);
-    if (height) attributes.push(`height="${height}"`);
+    if (options.class) attributes.push(`class="${options.class}"`);
+    if (options.width) attributes.push(`width="${options.width}"`);
+    if (options.height) attributes.push(`height="${options.height}"`);
 
     // Always add lazy loading like Shopify does
     attributes.push('loading="lazy"');
