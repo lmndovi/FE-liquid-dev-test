@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const plus = selector.querySelector('.qty-plus');
     const value = selector.querySelector('.qty-value');
 
-    // Initialize quantity from DOM and store in dataset
+    // Initialise quantity from DOM and store in dataset
     let qty = parseInt(value.textContent) || 1;
     selector.dataset.qty = qty;
 
