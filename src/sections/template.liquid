@@ -6,12 +6,20 @@
 
 <div class="product-grid flex flex-col md:grid md:grid-cols-2 gap-6 p-6 md:p-8">
   {% for product in collection.products %}
-    <article class="product-card">
+    <article class="product-card" aria-labelledby="product-{{ product.id }}-title">
   <!-- Image Wrapper -->
-      <div class="product-card__image-wrapper">
+      <a href="{{ product.url | default: '#' }}" class="product-card__image-wrapper" aria-label="View {{ product.title }}">
         {% assign product_image = product.media[0].preview_image.src | default: product.featured_image %}
         {% assign product_alt = product.media[0].alt | default: product.title %}
-        <img src="{{ product_image }}" alt="{{ product_alt }}" class="product-card__img">
+        {% if product_image %}
+          <figure>
+            <img src="{{ product_image }}" alt="{{ product_alt }}" class="product-card__img" loading="lazy">
+          </figure>
+        {% else %}
+          <figure>
+            <div class="product-card__img-placeholder" aria-label="{{ product_alt }}"></div>
+          </figure>
+        {% endif %}
         
         {% if product.tags contains 'Best Seller' %}
           <div class="tag-pill">Bestseller</div>
@@ -22,12 +30,12 @@
             <span class="carousel-dot {% if forloop.first %}carousel-dot--active{% endif %}"></span>
           {% endfor %}
         </div>
-      </div>
+      </a>
 
 <!-- Info -->
       <div class="product-card__info flex flex-col gap-4">
         <div class="flex flex-col gap-2">
-          <h3 class="text-base font-semibold leading-[21px] text-[#09121F]">{{ product.title }}</h3>
+          <h3 id="product-{{ product.id }}-title" class="text-base font-semibold leading-[21px] text-[#09121F]">{{ product.title }}</h3>
           {% assign product_excerpt = product.metafields.custom.product_excerpt.value | default: product.content | strip_html%}
           <p class="text-sm leading-[18px] text-[#09121F]">{{ product_excerpt }}</p>
         </div>
@@ -88,12 +96,12 @@
 
 <!-- CTA -->
       <div class="cta-container flex flex-row items-start gap-2">
-        <div class="quantity-selector flex flex-row items-center">
-          <button class="qty-minus">-</button>
-          <span class="qty-value">1</span>
-          <button class="qty-plus">+</button>
+        <div class="quantity-selector flex flex-row items-center" role="group" aria-label="Quantity selector">
+          <button class="qty-minus" aria-label="Decrease quantity" type="button">-</button>
+          <span class="qty-value" aria-live="polite">1</span>
+          <button class="qty-plus" aria-label="Increase quantity" type="button">+</button>
         </div>
-        <button class="btn-add-to-cart flex-1">Add to Cart</button>
+        <button class="btn-add-to-cart flex-1" aria-label="Add {{ product.title }} to cart" type="button">Add to Cart</button>
       </div>
     </article>
   {% endfor %}

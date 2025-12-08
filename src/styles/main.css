@@ -23,17 +23,38 @@
 /* Image Wrapper */
 .product-card__image-wrapper {
   position: relative;
+  display: block;
   width: 100%;
   aspect-ratio: 1 / 1;
   background: var(--color-light-gray);
   border-radius: 12px 12px 0 0;
   overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product-card__image-wrapper:focus {
+  outline: 2px solid var(--color-dark);
+  outline-offset: 2px;
+}
+
+.product-card__image-wrapper:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .product-card__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.product-card__img-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--color-light-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Bestseller Badge */
@@ -160,6 +181,13 @@
   transition: opacity 0.2s ease;
 }
 
+.qty-minus:focus-visible,
+.qty-plus:focus-visible {
+  outline: 2px solid var(--color-dark);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .qty-minus:disabled,
 .qty-plus:disabled {
   opacity: 0.5;
@@ -195,6 +223,11 @@
 
 .btn-add-to-cart:hover {
   opacity: 0.9;
+}
+
+.btn-add-to-cart:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
 }
 
 /* CTA Container */
