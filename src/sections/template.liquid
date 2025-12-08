@@ -1,4 +1,100 @@
+{% comment %}
+  Product Cards Grid
+  Mobile: Stacked vertically
+  Desktop: Side-by-side (2 columns)
+{% endcomment %}
 
-{% for product in collection.products %}
-  {{ product | json }}
-{% endfor %}
+<div class="product-grid flex flex-col md:grid md:grid-cols-2 gap-6 p-6 md:p-8">
+  {% for product in collection.products %}
+    <article class="product-card">
+  <!-- Image Wrapper -->
+      <div class="product-card__image-wrapper">
+        {% assign product_image = product.media[0].preview_image.src | default: product.featured_image %}
+        {% assign product_alt = product.media[0].alt | default: product.title %}
+        <img src="{{ product_image }}" alt="{{ product_alt }}" class="product-card__img">
+        
+        {% if product.tags contains 'Best Seller' %}
+          <div class="tag-pill">Bestseller</div>
+        {% endif %}
+        
+        <div class="carousel-dots">
+          {% for media in product.media %}
+            <span class="carousel-dot {% if forloop.first %}carousel-dot--active{% endif %}"></span>
+          {% endfor %}
+        </div>
+      </div>
+
+<!-- Info -->
+      <div class="product-card__info flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
+          <h3 class="text-base font-semibold leading-[21px] text-[#09121F]">{{ product.title }}</h3>
+          {% assign product_excerpt = product.metafields.custom.product_excerpt.value | default: product.content | strip_html%}
+          <p class="text-sm leading-[18px] text-[#09121F]">{{ product_excerpt }}</p>
+        </div>
+
+        <!-- Price -->
+        <div class="flex flex-row items-center gap-2">
+          {% assign current_price = product.price %}
+          {% assign compare_price = product.compare_at_price %}
+          {% assign is_on_sale = compare_price and compare_price > current_price %}
+          
+          {% if is_on_sale %}
+            {% assign saving = compare_price | minus: current_price %}
+            <span class="text-xl leading-[26px] text-[#09121F]">{{ current_price | money }}</span>
+            <span class="price-tag price-tag--was">Was {{ compare_price | money }}</span>
+            <span class="price-tag price-tag--save">Save {{ saving | money }}</span>
+          {% else %}
+            <span class="text-xl leading-[26px] text-[#09121F]">{{ current_price | money }}</span>
+          {% endif %}
+        </div>
+
+        <!-- Nutrition -->
+        <div class="product-card__nutrition flex flex-row items-center gap-2">
+        {% assign protein = '' %}
+        {% assign low_calories = false %}
+        {% assign low_sugar = false %}
+        
+        {% comment %}
+          LiquidJS stores metafields as an array, so we loop and match by 'key'
+          instead of using dot notation (product.metafields.custom.protein_per_serving.value)
+        {% endcomment %}
+
+
+        {% for metafield in product.metafields %}
+          {% if metafield.key == 'protein_per_serving' %}
+            {% assign protein = metafield.value %}
+          {% endif %}
+          {% if metafield.key == 'low_calories' %}
+            {% assign low_calories = metafield.value %}
+          {% endif %}
+          {% if metafield.key == 'low_sugar' %}
+            {% assign low_sugar = metafield.value %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if protein != '' %}
+          <span>{{ protein }} Protein</span>
+        {% endif %}
+        {% if low_calories %}
+          <span class="nutrition-dot"></span>
+          <span>Low Calories</span>
+        {% endif %}
+        {% if low_sugar %}
+          <span class="nutrition-dot"></span>
+          <span>Low Sugar</span>
+        {% endif %}
+        </div>
+      </div>
+
+<!-- CTA -->
+      <div class="cta-container flex flex-row items-start gap-2">
+        <div class="quantity-selector flex flex-row items-center">
+          <button class="qty-minus">-</button>
+          <span class="qty-value">1</span>
+          <button class="qty-plus">+</button>
+        </div>
+        <button class="btn-add-to-cart flex-1">Add to Cart</button>
+      </div>
+    </article>
+  {% endfor %}
+</div>

@@ -1,1 +1,207 @@
 @import "tailwindcss";
+
+/* Custom Colors */
+:root {
+  --color-dark: #09121F;
+  --color-red: #EB0000;
+  --color-green: #00920A;
+  --color-light-gray: #F5F5F5;
+}
+
+/* Product Card */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Mobile: full width */
+  max-width: 380px; /* Desktop: max width from Figma */
+  background: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 0px 2px rgba(9, 18, 31, 0.2);
+}
+
+/* Image Wrapper */
+.product-card__image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: var(--color-light-gray);
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bestseller Badge */
+.tag-pill {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  background: var(--color-dark);
+  border-radius: 100px;
+  font-family: 'Radio Canada Big', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  color: #FFFFFF;
+  z-index: 10;
+}
+
+/* Carousel Dots */
+.carousel-dots {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 100px;
+  background: rgba(9, 18, 31, 0.2);
+}
+
+.carousel-dot--active {
+  width: 16px;
+  background: var(--color-dark);
+}
+
+/* Product Info Section */
+.product-card__info {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 16px;
+}
+
+/* Price Tags */
+.price-tag {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 100px;
+  font-family: 'Radio Canada Big', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-dark);
+}
+
+.price-tag--was {
+  background: rgba(235, 0, 0, 0.1);
+  border: 1px solid var(--color-red);
+  text-decoration: line-through;
+}
+
+.price-tag--save {
+  background: rgba(0, 146, 10, 0.1);
+  border: 1px solid var(--color-green);
+}
+
+/* Nutritional Info */
+.product-card__nutrition {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Radio Canada Big', sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--color-dark);
+}
+
+.nutrition-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--color-dark);
+  border-radius: 50%;
+}
+
+/* Quantity Selector */
+.quantity-selector {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px;
+  gap: 16px;
+  width: 101px;
+  height: 53px;
+  border: 1px solid var(--color-dark);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.qty-minus,
+.qty-plus {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-dark);
+  font-size: 20px;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.qty-minus:disabled,
+.qty-plus:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qty-value {
+  font-family: 'Radio Canada Big', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--color-dark);
+}
+
+/* Add to Cart Button */
+.btn-add-to-cart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  gap: 8px;
+  background: var(--color-dark);
+  border-radius: 12px;
+  border: none;
+  font-family: 'Radio Canada Big', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 21px;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex: 1;
+}
+
+.btn-add-to-cart:hover {
+  opacity: 0.9;
+}
+
+/* CTA Container */
+.cta-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
