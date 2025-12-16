@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   width: 100%; /* Mobile: full width */
-  max-width: 380px; /* Desktop: max width from Figma */
+  max-width: 306px; /* Desktop: exact width from Figma */
   background: #FFFFFF;
   border-radius: 12px;
   overflow: hidden;
@@ -103,7 +103,10 @@
 .product-card__info {
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
   gap: 16px;
 }
 
@@ -209,6 +212,8 @@
   justify-content: center;
   padding: 16px;
   gap: 8px;
+  width: 149px;
+  height: 53px;
   background: var(--color-dark);
   border-radius: 12px;
   border: none;
@@ -218,7 +223,8 @@
   line-height: 21px;
   color: #FFFFFF;
   cursor: pointer;
-  flex: 1;
+  flex: none;
+  box-sizing: border-box;
 }
 
 .btn-add-to-cart:hover {

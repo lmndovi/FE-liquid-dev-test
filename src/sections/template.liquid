@@ -4,7 +4,7 @@
   Desktop: Side-by-side (2 columns)
 {% endcomment %}
 
-<div class="product-grid flex flex-col md:grid md:grid-cols-2 gap-6 p-6 md:p-8">
+<div class="product-grid flex flex-col md:grid md:grid-cols-2 gap-6 p-6 md:pt-[80px] md:pb-[48px] md:pl-[420px] md:pr-[420px] md:gap-6">
   {% for product in collection.products %}
     <article class="product-card" aria-labelledby="product-{{ product.id }}-title">
   <!-- Image Wrapper -->
@@ -92,16 +92,16 @@
           <span>Low Sugar</span>
         {% endif %}
         </div>
-      </div>
 
-<!-- CTA -->
-      <div class="cta-container flex flex-row items-start gap-2">
-        <div class="quantity-selector flex flex-row items-center" role="group" aria-label="Quantity selector">
-          <button class="qty-minus" aria-label="Decrease quantity" type="button">-</button>
-          <span class="qty-value" aria-live="polite">1</span>
-          <button class="qty-plus" aria-label="Increase quantity" type="button">+</button>
+        <!-- CTA -->
+        <div class="cta-container flex flex-row items-start gap-2">
+          <div class="quantity-selector flex flex-row items-center" role="group" aria-label="Quantity selector">
+            <button class="qty-minus" aria-label="Decrease quantity" type="button">-</button>
+            <span class="qty-value" aria-live="polite">1</span>
+            <button class="qty-plus" aria-label="Increase quantity" type="button">+</button>
+          </div>
+          <button class="btn-add-to-cart flex-1" aria-label="Add {{ product.title }} to cart" type="button">Add to Cart</button>
         </div>
-        <button class="btn-add-to-cart flex-1" aria-label="Add {{ product.title }} to cart" type="button">Add to Cart</button>
       </div>
     </article>
   {% endfor %}
